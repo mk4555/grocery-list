@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :grocery_bags
 
   def slug
-    self.name.downcase.gsub(" ",'-')
+    self.username.downcase.gsub(" ",'-')
   end
 
   def self.find_by_slug(slug)

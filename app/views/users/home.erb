@@ -1,0 +1,4 @@
+<h1><%=@user.username%>'s Groceries </h1>
+<%@user.grocery_bags.each do |item|%>
+  <%=item.name%>
+<%end%>
