@@ -5,6 +5,6 @@ if ActiveRecord::Migrator.needs_migration?
 end
 
 use Rack::MethodOverride
-use GroceryBagController
+use GroceryListController
 use UserController
 run ApplicationController

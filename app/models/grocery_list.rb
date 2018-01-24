@@ -1,4 +1,4 @@
-class GroceryBag < ActiveRecord::Base
+class GroceryList < ActiveRecord::Base
   belongs_to :user
 
   def slug

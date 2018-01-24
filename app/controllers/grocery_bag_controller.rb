@@ -1,3 +1,0 @@
-class GroceryBagController < ApplicationController
-
-end
