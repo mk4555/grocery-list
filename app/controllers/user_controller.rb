@@ -25,6 +25,7 @@ class UserController < ApplicationController
   post '/login' do
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password])
+      session[:user_id] = @user.id
       redirect "/#{@user.slug}/home"
     else
       #Flash message about failure to login
@@ -33,8 +34,13 @@ class UserController < ApplicationController
   end
 
   get '/:slug/home' do
-    @user = User.find_by_slug(params[:slug])
-    erb :'/users/home'
+    if logged_in?
+      @user = User.find_by_slug(params[:slug])
+      erb :'/users/home'
+    else
+      #Flash message about having to log in
+      redirect "/login"
+    end
   end
 
   get '/logout' do
