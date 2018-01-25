@@ -4,12 +4,12 @@
 <br>
 <form method="POST" action='/grocery-lists/new'>
   <label>Grocery List Name:</label>
-  <input type='text' name='name'>
+  <input type='text' name='grocery_list[name]'>
   <br>
   <label>Items</label>
   <% Item.all.each do |item| %>
     <%=item.name%>
-    <input id="<%= item.name %>" type="checkbox" name="items[]" value="<%= item.id %>">
+    <input id="item_<%=item.id%>" type="checkbox" name="grocery_list[item_ids][]" value="<%= item.id %>">
   <% end %>
   <input type='submit' name="Create Grocery List">
 </form>

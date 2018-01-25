@@ -5,8 +5,12 @@
 <%=@grocery.name%>
 <form method="POST" action='/grocery-lists/<%=@grocery.id%>/edit'>
   <label>Grocery List Name: </label>
-  <input type='text' name='name' placeholder='<%=@grocery.name%>'>
+  <input type='text' name='grocery_list[name]' placeholder='<%=@grocery.name%>'>
   <br>
+  <%Item.all.each do |item|%>
+    <%=item.name%>
+    <input type='checkbox' name='grocery_list[item_ids][]' value='<%=item.id%>' id='item_<%=item.id%>' <%= 'checked' if @grocery.items.include?(item) %>>
+  <%end%>
   <input type='hidden' id='hidden' name="_method" value='patch'>
   <input type='submit' name='Edit List'>
 </form>

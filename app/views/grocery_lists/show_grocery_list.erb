@@ -1,1 +1,4 @@
 <h1><%=@grocery.name%></h1>
+<%@grocery.items.each do |item|%>
+  <li><%=item.name%></li>
+<%end%>

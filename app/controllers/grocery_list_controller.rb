@@ -15,8 +15,8 @@ class GroceryListController < ApplicationController
   end
 
   post '/grocery-lists/new' do
-    if !params[:name].empty?
-      @grocery = GroceryList.create(params)
+    if !params[:grocery_list].empty?
+      @grocery = GroceryList.create(params[:grocery_list])
       @grocery.user_id = current_user.id
       @grocery.save
       redirect "/#{current_user.slug}/home"
@@ -38,8 +38,8 @@ class GroceryListController < ApplicationController
 
   patch '/grocery-lists/:id/edit' do
     @grocery = GroceryList.find(params[:id])
-    if !params[:name].empty?
-      @grocery.name = params[:name]
+    if !params[:grocery_list][:name].empty?
+      @grocery.update(params[:grocery_list])
       @grocery.save
       redirect "#{current_user.slug}/grocery-lists/#{@grocery.id}"
     else
