@@ -17,6 +17,9 @@ class UserController < ApplicationController
     if @user
       flash[:notice] = "#{@user.username} already exists, please try a different one"
       redirect '/signup'
+    elsif params[:username].empty? || params[:password].empty?
+      flash[:notice] = "Please enter both a username and a password"
+      redirect '/signup'
     else
       @user = User.create(params)
       session[:user_id] = @user.id

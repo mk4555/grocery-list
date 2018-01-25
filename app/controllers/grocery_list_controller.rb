@@ -1,7 +1,7 @@
 require 'rack-flash'
 class GroceryListController < ApplicationController
   use Rack::Flash
-  get '/grocery-lists' do
+  get '/:slug/grocery-lists' do
     redirect "/#{current_user.slug}/home"
   end
 
@@ -15,7 +15,7 @@ class GroceryListController < ApplicationController
   end
 
   post '/grocery-lists/new' do
-    if !params[:grocery_list].empty?
+    if !params[:grocery_list][:name].empty?
       @grocery = GroceryList.create(params[:grocery_list])
       @grocery.user_id = current_user.id
       @grocery.save

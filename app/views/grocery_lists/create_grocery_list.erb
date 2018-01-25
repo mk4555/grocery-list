@@ -3,19 +3,17 @@
 <% end %>
 <br>
 <form method="POST" action='/grocery-lists/new'>
-  <label>Grocery List Name:</label>
-  <input type='text' name='grocery_list[name]'>
+  <h2>Grocery List Name: <input type='text' name='grocery_list[name]'> </h2>
   <br>
   <label>Items</label>
   <% current_user.items.each do |item| %>
-    <%=item.name%>
-    <input id="item_<%=item.id%>" type="checkbox" name="grocery_list[item_ids][]" value="<%= item.id %>">
+    <li><%=item.name%> <input id="item_<%=item.id%>" type="checkbox" name="grocery_list[item_ids][]" value="<%= item.id %>"> </li>
   <% end %>
   <input type='submit' name="Create Grocery List">
 </form>
 
 <form method="POST" action='/items/add'>
-  <label> Create Item: </label>
+  <label> Add Item: </label>
   <input type='text' name='item[name]'>
   <input type='submit' value='add'>
 </form>
