@@ -1,4 +1,8 @@
+require 'rack-flash'
+
 class UserController < ApplicationController
+  use Rack::Flash
+
   get '/signup' do
     if logged_in?
       redirect "/#{current_user.slug}/home"
@@ -9,9 +13,15 @@ class UserController < ApplicationController
   end
 
   post '/signup' do
-    @user = User.create(params)
-    session[:user_id] = @user.id
-    redirect "/#{@user.slug}/home"
+    @user = User.find_by(username: params[:username])
+    if @user
+      flash[:notice] = "#{@user.username} already exists, please try a different one"
+      redirect '/signup'
+    else
+      @user = User.create(params)
+      session[:user_id] = @user.id
+      redirect "/#{@user.slug}/home"
+    end
   end
 
   get '/login' do
@@ -38,7 +48,6 @@ class UserController < ApplicationController
       @user = User.find_by_slug(params[:slug])
       erb :'/users/home'
     else
-      #Flash message about having to log in
       flash[:message] = "You must login first"
       redirect "/login"
     end

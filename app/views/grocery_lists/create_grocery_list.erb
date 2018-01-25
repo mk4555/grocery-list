@@ -6,5 +6,16 @@
   <label>Grocery List Name:</label>
   <input type='text' name='name'>
   <br>
-  <input type='submit' value="Create Grocery List">
+  <label>Items</label>
+  <% Item.all.each do |item| %>
+    <%=item.name%>
+    <input id="<%= item.name %>" type="checkbox" name="items[]" value="<%= item.id %>">
+  <% end %>
+  <input type='submit' name="Create Grocery List">
+</form>
+
+<form method="POST" action='/items/new'>
+  <label> Create Item: </label>
+  <input type='text' name='item_name'>
+  <input type='submit' name='add'>
 </form>

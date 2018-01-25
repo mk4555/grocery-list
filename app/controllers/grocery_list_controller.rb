@@ -1,4 +1,6 @@
+require 'rack-flash'
 class GroceryListController < ApplicationController
+  use Rack::Flash
   get '/grocery-lists' do
     redirect "/#{current_user.slug}/home"
   end
