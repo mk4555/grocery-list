@@ -15,7 +15,7 @@ class UserController < ApplicationController
   post '/signup' do
     @user = User.find_by(username: params[:username])
     if @user
-      flash[:notice] = "#{@user.username} already exists, please try a different one"
+      flash[:message] = "#{@user.username} already exists, please try a different one"
       redirect '/signup'
     else
       @user = User.create(params)

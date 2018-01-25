@@ -1,8 +1,9 @@
 <form method="POST" action='/items/new'>
   <label>Item Name: </label>
-  <input type='text' name='name'>
-  <%current_user.grocery_list.each do |list|%>
+  <input type='text' name='item[name]'>
+  <%current_user.grocery_lists.each do |list|%>
     <%=list.name%>
+    <input type='checkbox' name='item[grocery_list_ids][]' value='<%=list.id%>' id='grocery_list_<%=list.id%>'>
   <%end%>
   <input type="submit" name='submit'>
 </form>
