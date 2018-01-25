@@ -1,18 +1,27 @@
 class GroceryListController < ApplicationController
-  get '/grocery-lists/new' do
+  get '/grocery-lists' do
+    redirect "/#{current_user.slug}/home"
+  end
+
+  get '/:slug/grocery-lists/new' do
     if logged_in?
       erb :'/grocery_lists/create_grocery_list'
     else
-      #Flash you must be logged in message
+      flash[:message] = "You must login first"
       redirect '/login'
     end
   end
 
   post '/grocery-lists/new' do
-    @grocery = GroceryList.create(params)
-    @grocery.user_id = current_user.id
-    @grocery.save
-    redirect "/#{current_user.slug}/home"
+    if !params[:name].empty?
+      @grocery = GroceryList.create(params)
+      @grocery.user_id = current_user.id
+      @grocery.save
+      redirect "/#{current_user.slug}/home"
+    else
+      flash[:message] = "Grocery List name cannot be empty"
+      redirect "/#{current_user.slug}/grocery-lists/new"
+    end
   end
 
   get '/:slug/grocery-lists/:id' do
@@ -26,14 +35,24 @@ class GroceryListController < ApplicationController
   end
 
   patch '/grocery-lists/:id/edit' do
+    @grocery = GroceryList.find(params[:id])
     if !params[:name].empty?
-      @grocery = GroceryList.find(params[:id])
       @grocery.name = params[:name]
       @grocery.save
       redirect "#{current_user.slug}/grocery-lists/#{@grocery.id}"
     else
-      # Flash message about empty parameter
+      flash[:message] = "Grocery List Name cannot be empty"
       redirect "#{current_user.slug}/grocery-lists/#{@grocery.id}/edit"
+    end
+  end
+
+  delete '/grocery-lists/:id/delete' do
+    @grocery = GroceryList.find_by_id(params[:id])
+    if session[:user_id] == @grocery.user_id
+      @grocery.delete
+      redirect "/#{current_user.slug}/home"
+    else
+      redirect "/#{current_user.slug}/home"
     end
   end
 end

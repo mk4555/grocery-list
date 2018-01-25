@@ -28,7 +28,7 @@ class UserController < ApplicationController
       session[:user_id] = @user.id
       redirect "/#{@user.slug}/home"
     else
-      #Flash message about failure to login
+      flash[:message] = "Please make sure your username and password are correct"
       redirect "/login"
     end
   end
@@ -39,6 +39,7 @@ class UserController < ApplicationController
       erb :'/users/home'
     else
       #Flash message about having to log in
+      flash[:message] = "You must login first"
       redirect "/login"
     end
   end
@@ -46,10 +47,10 @@ class UserController < ApplicationController
   get '/logout' do
     if logged_in?
       logout
-      #Flash message about logging out successfully
+      flash[:message] = "You have been logged out"
       redirect '/login'
     else
-      #flash message about not beign logged in
+      flash[:message] = "You must login first"
       redirect '/login'
     end
   end

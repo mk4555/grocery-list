@@ -1,4 +1,7 @@
-
+<% if flash.has?(:message) %>
+  <h2><%= flash[:message] %></h2>
+<% end %>
+<br>
 <form method="POST" action='/grocery-lists/new'>
   <label>Grocery List Name:</label>
   <input type='text' name='name'>

@@ -9,3 +9,4 @@ gem "require_all"
 gem 'bcrypt'
 gem 'shotgun'
 gem 'pry'
+gem 'rack-flash3'

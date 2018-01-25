@@ -6,5 +6,6 @@ end
 
 use Rack::MethodOverride
 use GroceryListController
+use ItemController
 use UserController
 run ApplicationController

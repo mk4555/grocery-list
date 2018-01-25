@@ -1,7 +1,14 @@
 <h1><%=@user.username%>'s Groceries </h1>
-<a href='/grocery-lists/new'>New Grocery List</a>
+<a href='grocery-lists/new'>New Grocery List</a>
 
 <%@user.grocery_lists.each do |grocery_list|%>
-  <li><%=grocery_list.name%></li>
-  <a href="grocery-lists/<%=grocery_list.id%>/edit">Edit</a>
+  <h2><%=grocery_list.name.capitalize%></h2>
+  <%grocery_list.items.each do |item|%>
+    <li><%=item.name%></li>
+  <%end%>
+  <form method="POST" action="/grocery-lists/<%=grocery_list.id%>/delete">
+    <a href="grocery-lists/<%=grocery_list.id%>/edit">Edit</a>
+    <input type="hidden" id='hidden' name="_method" value='delete'>
+    <input type="submit" value="Delete">
+  </form>
 <%end%>

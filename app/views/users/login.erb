@@ -1,3 +1,5 @@
+
+<br>
 <form method='POST' action='/login'>
   <label>Username: </label>
   <input type='text' name='username'>
@@ -7,3 +9,8 @@
   <br>
   <input type='submit' value="Login">
 </form>
+<a href="/signup">Sign up</a>
+
+<% if flash.has?(:message) %>
+  <h2><%= flash[:message] %></h2>
+<% end %>
