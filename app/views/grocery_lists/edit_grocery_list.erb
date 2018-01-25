@@ -1,0 +1,8 @@
+<%=@grocery.name%>
+<form method="POST" action='/grocery-lists/<%=@grocery.id%>/edit'>
+  <label>Grocery List Name: </label>
+  <input type='text' name='name' placeholder='<%=@grocery.name%>'>
+  <br>
+  <input type='hidden' id='hidden' name="_method" value='patch'>
+  <input type='submit' name='Edit List'>
+</form>

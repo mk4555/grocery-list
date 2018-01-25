@@ -34,7 +34,7 @@ class UserController < ApplicationController
   end
 
   get '/:slug/home' do
-    if logged_in?
+    if logged_in? && current_user.username == params[:slug].gsub('-',' ')
       @user = User.find_by_slug(params[:slug])
       erb :'/users/home'
     else
