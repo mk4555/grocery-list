@@ -9,6 +9,6 @@
   <input type='submit' value="Sign up">
 </form>
 
-<% if flash.has?(:message) %>
-  <h2><%= flash[:message] %></h2>
+<% if flash.has?(:notice) %>
+  <h2><%= flash[:notice] %></h2>
 <% end %>

@@ -15,7 +15,7 @@ class UserController < ApplicationController
   post '/signup' do
     @user = User.find_by(username: params[:username])
     if @user
-      flash[:message] = "#{@user.username} already exists, please try a different one"
+      flash[:notice] = "#{@user.username} already exists, please try a different one"
       redirect '/signup'
     else
       @user = User.create(params)
@@ -38,7 +38,7 @@ class UserController < ApplicationController
       session[:user_id] = @user.id
       redirect "/#{@user.slug}/home"
     else
-      flash[:message] = "Please make sure your username and password are correct"
+      flash[:notice] = "Please make sure your username and password are correct"
       redirect "/login"
     end
   end

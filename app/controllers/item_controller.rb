@@ -22,6 +22,7 @@ class ItemController < ApplicationController
   post '/items/add' do
     if !params[:item][:name].empty?
       @item = Item.create(name: params[:item][:name])
+      current_user.items << @item
       redirect "/#{current_user.slug}/grocery-lists/new"
     else
       flash[:message] = "Item requires a name"
