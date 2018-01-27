@@ -7,6 +7,7 @@ class GroceryListController < ApplicationController
     else
       flash[:notice] = "Please login to continue"
       redirect '/login'
+    end
   end
 
   get '/:slug/grocery-lists/new' do
