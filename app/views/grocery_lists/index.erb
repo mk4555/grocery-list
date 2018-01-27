@@ -1,0 +1,6 @@
+<%current_user.grocery_lists.each do |list|%>
+  <h2><%=list.name%></h2>
+  <%list.items.each do |item|%>
+    <li><%=item.name%></li>
+  <%end%>
+<%end%>

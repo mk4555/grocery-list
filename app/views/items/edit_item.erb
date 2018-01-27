@@ -1,5 +1,9 @@
+<% if flash.has?(:notice) %>
+  <h2><%= flash[:notice] %></h2>
+<% end %>
+<h1><%=@item.name.capitalize%></h1>
 <form method="POST" action='/items/<%=@item.id%>/edit'>
-  <label>Item Name: </label>
+  <label>New Name: </label>
   <input type='text' name='name'>
   <input type='hidden' id='hidden' name='_method' value='patch'>
   <input type='submit' name='Edit' placeholder='<%=@item.name%>'>

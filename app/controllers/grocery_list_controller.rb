@@ -2,14 +2,14 @@ require 'rack-flash'
 class GroceryListController < ApplicationController
   use Rack::Flash
   get '/:slug/grocery-lists' do
-    redirect "/#{current_user.slug}/home"
+    erb :'/grocery_lists/index'
   end
 
   get '/:slug/grocery-lists/new' do
     if logged_in?
       erb :'/grocery_lists/create_grocery_list'
     else
-      flash[:message] = "You must login first"
+      flash[:notice] = "You must login first"
       redirect '/login'
     end
   end
@@ -21,7 +21,7 @@ class GroceryListController < ApplicationController
       @grocery.save
       redirect "/#{current_user.slug}/home"
     else
-      flash[:message] = "Grocery List name cannot be empty"
+      flash[:notice] = "Grocery List name cannot be empty"
       redirect "/#{current_user.slug}/grocery-lists/new"
     end
   end
@@ -43,7 +43,7 @@ class GroceryListController < ApplicationController
       @grocery.save
       redirect "#{current_user.slug}/grocery-lists/#{@grocery.id}"
     else
-      flash[:message] = "Grocery List Name cannot be empty"
+      flash[:notice] = "Grocery List Name cannot be empty"
       redirect "#{current_user.slug}/grocery-lists/#{@grocery.id}/edit"
     end
   end
