@@ -1,0 +1,5 @@
+<h1><%=@item.name%></h1>
+<h4>This item is in grocery lists: </h4>
+<%@item.grocery_lists.each do |list|%>
+  <li><%=list.name%></li>
+<%end%>

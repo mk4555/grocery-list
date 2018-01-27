@@ -3,16 +3,9 @@
 <h3><%=@user.grocery_lists.size%> Grocery List(s)</h3>
 <h3><%=@user.items.size%> Item(s)</h3>
 
-<a href='grocery-lists/new'>New Grocery List</a>
-
 <%@user.grocery_lists.each do |grocery_list|%>
   <h2><%=grocery_list.name.capitalize%></h2>
   <%grocery_list.items.each do |item|%>
     <li><%=item.name%></li>
   <%end%>
-  <form method="POST" action="/grocery-lists/<%=grocery_list.id%>/delete">
-    <a href="grocery-lists/<%=grocery_list.id%>/edit">Edit</a>
-    <input type="hidden" id='hidden' name="_method" value='delete'>
-    <input type="submit" value="Delete">
-  </form>
 <%end%>

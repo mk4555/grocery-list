@@ -6,9 +6,12 @@
 </head>
 <body>
   <div class="topnav">
-  <a class="active" href="/<%=current_user.slug%>/home">Home</a>
-  <a href="/<%=current_user.slug%>/grocery-lists">Grocery Lists</a>
-  <a href="/<%=current_user.slug%>/items">Items</a>
+  <%if logged_in?%>
+    <a class="active" href="/<%=current_user.slug%>/home">Home</a>
+    <a href="/<%=current_user.slug%>/grocery-lists">Grocery Lists</a>
+    <a href="/<%=current_user.slug%>/items">Items</a>
+    <a href="/logout">Logout</a>
+  <%end%>
 </div>
   <%=yield%>
 </body>

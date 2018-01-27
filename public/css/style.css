@@ -25,3 +25,10 @@
     background-color: #4CAF50;
     color: white;
 }
+
+#logout {
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+}

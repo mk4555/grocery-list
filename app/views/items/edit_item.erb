@@ -4,7 +4,14 @@
 <h1><%=@item.name.capitalize%></h1>
 <form method="POST" action='/items/<%=@item.id%>/edit'>
   <label>New Name: </label>
-  <input type='text' name='name'>
+  <input type='text' name='item[name]'>
+  <br>
+  <h4> Check the grocery lists you want this item to be in</h4>
+  <label>Grocery Lists:</label>
+  <br>
+  <%current_user.grocery_lists.each do |list|%>
+    <li><%=list.name%> <input type='checkbox' name='item[grocery_list_ids][]' value='<%=list.id%>' id='grocery_list_<%=list.id%>' <%= 'checked' if @item.grocery_lists.include?(list) %>> </li>
+  <%end%>
   <input type='hidden' id='hidden' name='_method' value='patch'>
   <input type='submit' name='Edit' placeholder='<%=@item.name%>'>
 </form>

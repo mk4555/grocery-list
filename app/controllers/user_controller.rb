@@ -51,7 +51,7 @@ class UserController < ApplicationController
       @user = User.find_by_slug(params[:slug])
       erb :'/users/home'
     else
-      flash[:message] = "You must login first"
+      flash[:notice] = "You must login first"
       redirect "/login"
     end
   end
@@ -59,10 +59,10 @@ class UserController < ApplicationController
   get '/logout' do
     if logged_in?
       logout
-      flash[:message] = "You have been logged out"
+      flash[:notice] = "You have been logged out"
       redirect '/login'
     else
-      flash[:message] = "You must login first"
+      flash[:notice] = "You must login first"
       redirect '/login'
     end
   end

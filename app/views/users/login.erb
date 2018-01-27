@@ -1,3 +1,4 @@
+<h1>Grocery List Tracker</h1>
 <form method='POST' action='/login'>
   <label>Username: </label>
   <input type='text' name='username'>
@@ -9,6 +10,6 @@
 </form>
 <a href="/signup">Sign up</a>
 
-<% if flash.has?(:message) %>
-  <h2><%= flash[:message] %></h2>
+<% if flash.has?(:notice) %>
+  <h2><%= flash[:notice] %></h2>
 <% end %>

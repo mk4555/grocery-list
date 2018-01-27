@@ -8,15 +8,6 @@ class ItemController < ApplicationController
     end
   end
 
-  get '/:slug/items/:id' do
-    @item = Item.find_by_id(params[:id])
-    if logged_in?
-      erb :'/items/show_item'
-    else
-      flash[:notice] = "Please login to continue"
-    end
-  end
-
   get '/:slug/items/new' do
     if logged_in?
       erb :'/items/create_item'
@@ -26,19 +17,22 @@ class ItemController < ApplicationController
     end
   end
 
-  post '/items/new' do
-    @item = Item.find_or_create_by(name: params[:item][:name])
-    current_user.items << @item
-    if params[:item][:grocery_list_ids]
-      @item.grocery_list_id = params[:item][:grocery_list_ids]
-      params[:item][:grocery_list_ids].each do |id|
-        list = GroceryList.find(id)
-        list.items << @item
-      end
-      redirect "/#{current_user.slug}/grocery-lists"
+  get '/:slug/items/:id' do
+    @item = Item.find_by_id(params[:id])
+    if logged_in?
+      erb :'/items/show_item'
     else
-      redirect "/#{current_user.slug}/grocery-lists"
+      flash[:notice] = "Please login to continue"
     end
+  end
+
+
+
+  post '/items/new' do
+    @item = Item.create(params[:item])
+    current_user.items << @item
+    @item.save
+    redirect "/#{current_user.slug}/items"
   end
 
   post '/items/add' do
@@ -67,8 +61,8 @@ class ItemController < ApplicationController
 
   patch '/items/:id/edit' do
     @item = Item.find_by_id(params[:id])
-    if !params[:name].empty?
-      @item.update(params[:name])
+    if !params[:item][:name].empty?
+      @item.update(params[:item])
       @item.save
       redirect "/#{current_user.slug}/items/#{@item.id}"
     else

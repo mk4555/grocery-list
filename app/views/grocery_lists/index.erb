@@ -1,6 +1,13 @@
+<button><a href='grocery-lists/new'>New Grocery List</a></button>
+
 <%current_user.grocery_lists.each do |list|%>
   <h2><%=list.name%></h2>
   <%list.items.each do |item|%>
     <li><%=item.name%></li>
   <%end%>
+  <form method="POST" action="/grocery-lists/<%=list.id%>/delete">
+    <button><a href="grocery-lists/<%=list.id%>/edit">Edit</a></button>
+    <input type="hidden" id='hidden' name="_method" value='delete'>
+    <input type="submit" value="Delete">
+  </form>
 <%end%>
