@@ -1,12 +1,5 @@
 class GroceryList < ActiveRecord::Base
-  has_many :items
+  has_many :grocery_list_items
+  has_many :items, through: :grocery_list_items
   belongs_to :user
-
-  def slug
-    self.name.downcase.gsub(' ','-')
-  end
-
-  def self.find_by_slug(slug)
-    GroceryBag.all.find{|bag| bag.slug == slug}
-  end
 end

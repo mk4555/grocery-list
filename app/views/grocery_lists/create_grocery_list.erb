@@ -7,7 +7,7 @@
   <br>
   <label>Items</label>
   <% current_user.items.each do |item| %>
-    <li><%=item.name%> <input id="item_<%=item.id%>" type="checkbox" name="grocery_list[item_ids][]" value="<%= item.id %>"> </li>
+    <li><%=item.name.capitalize%> <input id="item_<%=item.id%>" type="checkbox" name="grocery_list[item_ids][]" value="<%= item.id %>"> </li>
   <% end %>
   <input type='submit' name="Create Grocery List">
 </form>

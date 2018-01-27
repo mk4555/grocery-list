@@ -53,8 +53,6 @@ class GroceryListController < ApplicationController
     if session[:user_id] == @grocery.user_id
       @grocery.delete
       redirect "/#{current_user.slug}/home"
-    else
-      redirect "/#{current_user.slug}/home"
     end
   end
 end

@@ -1,0 +1,6 @@
+<form method="POST" action='/items/<%=@item.id%>/edit'>
+  <label>Item Name: </label>
+  <input type='text' name='name'>
+  <input type='hidden' id='hidden' name='_method' value='patch'>
+  <input type='submit' name='Edit' placeholder='<%=@item.name%>'>
+</form>

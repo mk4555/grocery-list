@@ -53,4 +53,13 @@ class ItemController < ApplicationController
       redirect "/#{current_user.slug}/items"
     end
   end
+
+  get '/items/:id/edit' do
+    @id = Item.find_by_id(params[:id])
+    erb :'/items/edit_item'
+  end
+
+  patch '/items/:id/edit' do
+    @id = Item.find_by_id(params[:id])
+  end
 end
