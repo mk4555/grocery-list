@@ -2,7 +2,11 @@ require 'rack-flash'
 class GroceryListController < ApplicationController
   use Rack::Flash
   get '/:slug/grocery-lists' do
-    erb :'/grocery_lists/index'
+    if logged_in?
+      erb :'/grocery_lists/index'
+    else
+      flash[:notice] = "Please login to continue"
+      redirect '/login'
   end
 
   get '/:slug/grocery-lists/new' do
@@ -27,13 +31,23 @@ class GroceryListController < ApplicationController
   end
 
   get '/:slug/grocery-lists/:id' do
-    @grocery = GroceryList.find(params[:id])
-    erb :'/grocery_lists/show_grocery_list'
+    if logged_in?
+      @grocery = GroceryList.find(params[:id])
+      erb :'/grocery_lists/show_grocery_list'
+    else
+      flash[:notice] = "Please login to continue"
+      redirect '/login'
+    end
   end
 
   get '/:slug/grocery-lists/:id/edit' do
-    @grocery = GroceryList.find(params[:id])
-    erb :'/grocery_lists/edit_grocery_list'
+    if logged_in?
+      @grocery = GroceryList.find(params[:id])
+      erb :'/grocery_lists/edit_grocery_list'
+    else
+      flash[:notice] = "Please login to continue"
+      redirect '/login'
+    end
   end
 
   patch '/grocery-lists/:id/edit' do
