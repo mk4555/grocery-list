@@ -2,18 +2,28 @@
 
 Specs:
 - [x] Use Sinatra to build the app
-- [ ] Use ActiveRecord for storing information in a database
-- [ ] Include more than one model class (list of model class names e.g. User, Post, Category)
-- [ ] Include at least one has_many relationship (x has_many y e.g. User has_many Posts)
-- [ ] Include user accounts
-- [ ] Ensure that users can't modify content created by other users
-- [ ] Ensure that the belongs_to resource has routes for Creating, Reading, Updating and Destroying
-- [ ] Include user input validations
-- [ ] Display validation failures to user with error message (example form URL e.g. /posts/new)
-- [ ] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code
-
+- [x] Use ActiveRecord for storing information in a database
+--Created 4 migrations for tables and modified with ActiveRecord models
+- [x] Include more than one model class (list of model class names e.g. User, Post, Category)
+--Includes User, Item, Grocery List, Grocery List Item
+- [s] Include at least one has_many relationship (x has_many y e.g. User has_many Posts)
+--User has many grocery Lists
+--User has many items
+--Grocery List has many items, etc
+- [x] Include user accounts
+--Can signup and login with user
+- [x] Ensure that users can't modify content created by other users
+--Checks if a user is signed in with sessions
+- [x] Ensure that the belongs_to resource has routes for Creating, Reading, Updating and Destroying
+Both Items and Grocery Lists can be CRUD
+- [x] Include user input validations
+--If certain forms are empty, raises an error
+- [x] Display validation failures to user with error message (example form URL e.g. /posts/new)
+--rack-flash gem used to indicated validations
+- [x] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code
+--README included in project
 Confirm
-- [ ] You have a large number of small Git commits
-- [ ] Your commit messages are meaningful
-- [ ] You made the changes in a commit that relate to the commit message
-- [ ] You don't include changes in a commit that aren't related to the commit message
+- [x] You have a large number of small Git commits
+- [x] Your commit messages are meaningful
+- [x] You made the changes in a commit that relate to the commit message
+- [x] You don't include changes in a commit that aren't related to the commit message
