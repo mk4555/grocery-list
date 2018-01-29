@@ -67,7 +67,7 @@ class GroceryListController < ApplicationController
     @grocery = GroceryList.find_by_id(params[:id])
     if session[:user_id] == @grocery.user_id
       @grocery.delete
-      redirect "/#{current_user.slug}/home"
+      redirect "/#{current_user.slug}/grocery-lists"
     end
   end
 end
