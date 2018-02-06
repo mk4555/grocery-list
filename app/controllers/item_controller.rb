@@ -1,4 +1,8 @@
+require 'rack-flash'
+
 class ItemController < ApplicationController
+  use Rack::Flash
+
   get '/:slug/items' do
     if logged_in?
       erb :'/items/index'
