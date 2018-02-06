@@ -5,7 +5,7 @@
 <form method="POST" action='/grocery-lists/new'>
   <h2>Grocery List Name: <input type='text' name='grocery_list[name]'> </h2>
   <br>
-  <label>Items</label>
+  <h3>Items:</h3>
   <% current_user.items.each do |item| %>
     <li><%=item.name.capitalize%> <input id="item_<%=item.id%>" type="checkbox" name="grocery_list[item_ids][]" value="<%= item.id %>"> </li>
   <% end %>
