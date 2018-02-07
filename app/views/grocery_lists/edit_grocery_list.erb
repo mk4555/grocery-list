@@ -1,9 +1,6 @@
-<% if flash.has?(:notice) %>
-  <h2><%= flash[:notice] %></h2>
-<% end %>
 <br>
 <%=@grocery.name%>
-<form method="POST" action='/grocery-lists/<%=@grocery.id%>/edit'>
+<form method="POST" action='/grocery-lists/<%=@grocery.id%>'>
   <label>Grocery List Name: </label>
   <input type='text' name='grocery_list[name]' placeholder='<%=@grocery.name%>'>
   <br>

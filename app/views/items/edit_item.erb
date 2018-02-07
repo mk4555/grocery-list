@@ -1,8 +1,5 @@
-<% if flash.has?(:notice) %>
-  <h2><%= flash[:notice] %></h2>
-<% end %>
 <h1><%=@item.name.capitalize%></h1>
-<form method="POST" action='/items/<%=@item.id%>/edit'>
+<form method="POST" action='/items/<%=@item.id%>'>
   <label>New Name: </label>
   <input type='text' name='item[name]'>
   <br>

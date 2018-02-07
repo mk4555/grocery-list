@@ -1,11 +1,11 @@
 <h1> <%=current_user.username%>'s Items </h1>
-<button><a href='/<%=current_user.slug%>/items/new'>Create new item</a></button>
+<button><a href='/items/new'>Create new item</a></button>
 <%current_user.items.each do |item|%>
   <li>
     <%=item.name.capitalize%>
-    <form method="POST" action="/items/<%=item.id%>/delete">
-      <button><a href='/<%=current_user.slug%>/items/<%=item.id%>'>Show</a></button>
-      <button><a href="/<%=current_user.slug%>/items/<%=item.id%>/edit">Edit</a></button>
+    <form method="POST" action="/items/<%=item.id%>">
+      <button><a href='/items/<%=item.id%>'>Show</a></button>
+      <button><a href="/items/<%=item.id%>/edit">Edit</a></button>
       <input type="hidden" id='hidden' name="_method" value='delete'>
       <input type="submit" value="Delete">
     </form>

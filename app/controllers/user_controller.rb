@@ -5,7 +5,7 @@ class UserController < ApplicationController
 
   get '/signup' do
     if logged_in?
-      redirect "/#{current_user.slug}/home"
+      redirect "/home"
     else
       erb :'/users/create_user'
     end
@@ -23,13 +23,13 @@ class UserController < ApplicationController
     else
       @user = User.create(params)
       session[:user_id] = @user.id
-      redirect "/#{@user.slug}/home"
+      redirect "/home"
     end
   end
 
   get '/login' do
     if logged_in?
-      redirect "/#{current_user.slug}/home"
+      redirect " /home"
     else
       erb :'/users/login'
     end
@@ -39,16 +39,16 @@ class UserController < ApplicationController
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect "/#{@user.slug}/home"
+      redirect "/home"
     else
       flash[:notice] = "Please make sure your username and password are correct"
       redirect "/login"
     end
   end
 
-  get '/:slug/home' do
-    if logged_in? && current_user.username == params[:slug].gsub('-',' ')
-      @user = User.find_by_slug(params[:slug])
+  get '/home' do
+    if logged_in?
+      @user = current_user
       erb :'/users/home'
     else
       flash[:notice] = "You must login first"
@@ -56,13 +56,9 @@ class UserController < ApplicationController
     end
   end
 
-  get '/logout' do
+  post '/logout' do
     if logged_in?
       logout
-      flash[:notice] = "You have been logged out"
-      redirect '/login'
-    else
-      flash[:notice] = "You must login first"
       redirect '/login'
     end
   end

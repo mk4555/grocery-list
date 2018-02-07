@@ -1,7 +1,7 @@
 require 'rack-flash'
 class GroceryListController < ApplicationController
   use Rack::Flash
-  get '/:slug/grocery-lists' do
+  get '/grocery-lists' do
     if logged_in?
       erb :'/grocery_lists/index'
     else
@@ -10,7 +10,7 @@ class GroceryListController < ApplicationController
     end
   end
 
-  get '/:slug/grocery-lists/new' do
+  get '/grocery-lists/new' do
     if logged_in?
       erb :'/grocery_lists/create_grocery_list'
     else
@@ -24,16 +24,16 @@ class GroceryListController < ApplicationController
       @grocery = GroceryList.create(params[:grocery_list])
       @grocery.user_id = current_user.id
       @grocery.save
-      redirect "/#{current_user.slug}/home"
+      redirect "/home"
     else
       flash[:notice] = "Grocery List name cannot be empty"
-      redirect "/#{current_user.slug}/grocery-lists/new"
+      redirect "/grocery-lists/new"
     end
   end
 
-  get '/:slug/grocery-lists/:id' do
-    if logged_in?
-      @grocery = GroceryList.find(params[:id])
+  get '/grocery-lists/:id' do
+    @grocery = GroceryList.find(params[:id])
+    if @grocery.user == current_user
       erb :'/grocery_lists/show_grocery_list'
     else
       flash[:notice] = "Please login to continue"
@@ -41,9 +41,9 @@ class GroceryListController < ApplicationController
     end
   end
 
-  get '/:slug/grocery-lists/:id/edit' do
-    if logged_in?
-      @grocery = GroceryList.find(params[:id])
+  get '/grocery-lists/:id/edit' do
+    @grocery = GroceryList.find(params[:id])
+    if @grocery.user == current_user
       erb :'/grocery_lists/edit_grocery_list'
     else
       flash[:notice] = "Please login to continue"
@@ -51,23 +51,25 @@ class GroceryListController < ApplicationController
     end
   end
 
-  patch '/grocery-lists/:id/edit' do
+  patch '/grocery-lists/:id' do
     @grocery = GroceryList.find(params[:id])
-    if !params[:grocery_list][:name].empty?
-      @grocery.update(params[:grocery_list])
-      @grocery.save
-      redirect "#{current_user.slug}/grocery-lists/#{@grocery.id}"
-    else
-      flash[:notice] = "Grocery List Name cannot be empty"
-      redirect "#{current_user.slug}/grocery-lists/#{@grocery.id}/edit"
+    if @grocery.user == current_user
+      if !params[:grocery_list][:name].empty?
+        @grocery.update(params[:grocery_list])
+        @grocery.save
+        redirect "/grocery-lists/#{@grocery.id}"
+      else
+        flash[:notice] = "Grocery List Name cannot be empty"
+        redirect "/grocery-lists/#{@grocery.id}/edit"
+      end
     end
   end
 
-  delete '/grocery-lists/:id/delete' do
+  delete '/grocery-lists/:id' do
     @grocery = GroceryList.find_by_id(params[:id])
-    if session[:user_id] == @grocery.user_id
+    if @grocery.user == current_user
       @grocery.delete
-      redirect "/#{current_user.slug}/grocery-lists"
+      redirect "/grocery-lists"
     end
   end
 end

@@ -5,7 +5,7 @@
   <%list.items.each do |item|%>
     <li><%=item.name%></li>
   <%end%>
-  <form method="POST" action="/grocery-lists/<%=list.id%>/delete">
+  <form method="POST" action="/grocery-lists/<%=list.id%>">
     <button><a href="grocery-lists/<%=list.id%>/edit">Edit</a></button>
     <input type="hidden" id='hidden' name="_method" value='delete'>
     <input type="submit" value="Delete">
